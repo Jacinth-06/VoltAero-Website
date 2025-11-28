@@ -1,17 +1,17 @@
-"use client";
-import Link from "next/link";
-import Image from "next/image";
-import projects from "./projectsData";
-import { motion } from "framer-motion";
-import SectionHeading from "@/components/SectionHeading";
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+import projects from './projectsData';
+import { motion } from 'framer-motion';
+import SectionHeading from '@/components/SectionHeading';
 
 const ProjectsPage = () => {
-  const droneExperiments = projects.filter((exp) => exp.category === "Drones");
+  const droneExperiments = projects;
 
   return (
     <div className="container mx-auto px-4">
       <SectionHeading
-        title="Drone Solutions"
+        title="Our Solutions"
         subtitle=" Cutting-edge drone technology for surveillance, cinematography, and
             specialized applications"
       />
@@ -52,7 +52,7 @@ const ProjectsPage = () => {
                   </h3>
                   {/* Optional: Add a category badge */}
                   <span className="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">
-                    Drone
+                    {exp.category}
                   </span>
                 </div>
 
