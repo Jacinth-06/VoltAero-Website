@@ -31,11 +31,6 @@ const page = () => {
           href: "/contact",
           variant: "default",
         }}
-        secondaryButton={{
-          label: "Explore Projects",
-          href: "/projects",
-          variant: "outline",
-        }}
       />
     </div>
   );

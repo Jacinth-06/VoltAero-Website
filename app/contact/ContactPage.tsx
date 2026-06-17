@@ -475,16 +475,6 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.6 }}
             >
-              <Link href="/projects" className="w-full sm:w-auto">
-                <motion.button
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg transition-all w-full sm:w-auto"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  View Our Projects
-                </motion.button>
-              </Link>
               <Link href="/#about" className="w-full sm:w-auto">
                 <motion.button
                   className="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold px-8 py-3 rounded-xl transition-all w-full sm:w-auto"

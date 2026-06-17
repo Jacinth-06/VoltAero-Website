@@ -5,12 +5,23 @@ export const metadata: Metadata = {
   title: "Products",
   description:
     "Explore our specialized drone products and autonomous systems.",
+  keywords:
+    "drones, drone technology, surveillance drones, cinematography drones, specialized drone applications, autonomous systems",
+  robots: "index, follow",
+  openGraph: {
+    title: "Products",
+    description:
+      "Explore our specialized drone products and autonomous systems.",
+    type: "website",
+  },
 };
 
-export default function Page() {
+const Page = () => {
   return (
-    <div>
+    <div className="">
       <ProductsPage />
     </div>
   );
-}
+};
+
+export default Page;

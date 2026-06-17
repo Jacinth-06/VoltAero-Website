@@ -42,18 +42,6 @@ const navItems: NavItem[] = [
     label: "Technology",
     link: "/experiments",
   },
-  {
-    label: "Projects",
-    link: "/projects",
-  },
-  {
-    label: "Showcase",
-    link: "/showcase",
-  },
-  {
-    label: "Blog",
-    link: "/blog",
-  },
 ];
 
 export default function Navbar() {

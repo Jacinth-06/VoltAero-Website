@@ -104,18 +104,7 @@ export default function LandingPage() {
               vehicles, swarm drone technologies, and AI-powered solutions for
               agriculture and defense.
             </motion.p>
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <Link href="/projects">
-                <Button className="bg-gradient-to-r from-yellow-400 to-pink-500 hover:from-yellow-500 hover:to-pink-600 text-black font-semibold px-6 sm:px-8 py-3 text-base sm:text-lg shadow-2xl">
-                  Explore Solutions
-                </Button>
-              </Link>
-            </motion.div>
+
           </motion.div>
         </div>
       </section>
@@ -176,20 +165,6 @@ export default function LandingPage() {
               </motion.div>
             ))}
           </div>
-
-          <motion.div
-            className="mt-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Link href="/showcase">
-              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-3 text-lg">
-                View More Demonstrations
-              </Button>
-            </Link>
-          </motion.div>
         </div>
       </section>
 
