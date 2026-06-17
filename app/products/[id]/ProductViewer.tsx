@@ -13,22 +13,33 @@ import {
   LucideIcon,
   Play,
   X,
+  Cpu,
+  Activity,
+  Sliders,
+  Terminal,
+  Compass,
+  Mic,
+  Settings,
 } from "lucide-react";
 import { useState } from "react";
 
+const IconMap: Record<string, LucideIcon> = {
+  Cpu, Zap, Activity, Sliders, Terminal, Shield, Eye, Compass, Mic, Settings
+};
+
 interface ProductFeature {
-  icon: LucideIcon;
+  iconName: string;
   title: string;
   description: string;
 }
 
 interface ProductSpecifications {
-  flightTime: string;
-  range: string;
-  camera: string;
-  weatherResistance: string;
-  maxSpeed: string;
-  payload: string;
+  [key: string]: string;
+}
+
+interface QuickSpecItem {
+  value: string;
+  label: string;
 }
 
 interface BaseProduct {
@@ -41,6 +52,8 @@ interface BaseProduct {
     images?: string[];
     videos?: string[];
   };
+  quickSpecs?: QuickSpecItem[];
+  whatsInTheBox?: string[];
 }
 
 interface EnhancedProduct extends BaseProduct {
@@ -51,64 +64,12 @@ interface EnhancedProduct extends BaseProduct {
 }
 
 // Placeholder data that would typically come from a more detailed database
-const getPlaceholderData = (product: BaseProduct): EnhancedProduct => ({
+const getPlaceholderData = (product: EnhancedProduct): EnhancedProduct => ({
   ...product,
-  longDescription:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  specifications: {
-    flightTime: "45 minutes",
-    range: "5 km",
-    camera: "4K Ultra HD",
-    weatherResistance: "IP65 Rated",
-    maxSpeed: "65 km/h",
-    payload: "2.5 kg",
-  },
-  features: [
-    {
-      icon: Eye,
-      title: "Advanced Vision",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-    },
-    {
-      icon: Wifi,
-      title: "Real-time Connectivity",
-      description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
-    },
-    {
-      icon: Shield,
-      title: "Enhanced Security",
-      description:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      icon: Battery,
-      title: "Extended Performance",
-      description:
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.",
-    },
-    {
-      icon: Zap,
-      title: "Smart Automation",
-      description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-    },
-    {
-      icon: Camera,
-      title: "Professional Imaging",
-      description:
-        "Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.",
-    },
-  ],
-  applications: [
-    "Security & Surveillance",
-    "Aerial Photography",
-    "Infrastructure Inspection",
-    "Emergency Response",
-    "Training & Education",
-    "Research & Development",
-  ],
+  longDescription: product.longDescription || "Placeholder product description.",
+  specifications: product.specifications || {},
+  features: product.features || [],
+  applications: product.applications || [],
 });
 
 export default function ProductDetailsClient({ product }: { product: EnhancedProduct }) {
@@ -241,28 +202,41 @@ export default function ProductDetailsClient({ product }: { product: EnhancedPro
             </div>
 
             {/* Quick Specs */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-black">
-                  {droneData.specifications.flightTime}
+            {droneData.quickSpecs && droneData.quickSpecs.length > 0 ? (
+              <div className="grid grid-cols-2 gap-4">
+                {droneData.quickSpecs.map((spec, index) => (
+                  <div key={index} className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                    <div className="text-2xl font-bold text-black leading-tight">
+                      {spec.value}
+                    </div>
+                    <div className="text-sm text-gray-600">{spec.label}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-black">
+                    {droneData.specifications?.flightTime || "N/A"}
+                  </div>
+                  <div className="text-sm text-gray-600">Flight Time</div>
                 </div>
-                <div className="text-sm text-gray-600">Flight Time</div>
-              </div>
-              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-black">
-                  {droneData.specifications.range}
+                <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-black">
+                    {droneData.specifications?.range || "N/A"}
+                  </div>
+                  <div className="text-sm text-gray-600">Range</div>
                 </div>
-                <div className="text-sm text-gray-600">Range</div>
+                <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-black">4K</div>
+                  <div className="text-sm text-gray-600">Ultra HD</div>
+                </div>
+                <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-black">IP65</div>
+                  <div className="text-sm text-gray-600">Weather Proof</div>
+                </div>
               </div>
-              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-black">4K</div>
-                <div className="text-sm text-gray-600">Ultra HD</div>
-              </div>
-              <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-black">IP65</div>
-                <div className="text-sm text-gray-600">Weather Proof</div>
-              </div>
-            </div>
+            )}
 
             {/* CTA Button */}
             <motion.button
@@ -408,24 +382,27 @@ export default function ProductDetailsClient({ product }: { product: EnhancedPro
 
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {droneData.features.map(
-              (feature: ProductFeature, index: number) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100"
-                >
-                  <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </motion.div>
-              )
+              (feature: ProductFeature, index: number) => {
+                const IconComponent = IconMap[feature.iconName] || Shield;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+                  >
+                    <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center mb-4">
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </motion.div>
+                );
+              }
             )}
           </div>
         </div>
@@ -466,35 +443,64 @@ export default function ProductDetailsClient({ product }: { product: EnhancedPro
               </div>
             </motion.div>
 
-            {/* Applications */}
+            {/* Applications & What's In The Box */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                Applications
-              </h2>
-              <div className="space-y-3">
-                {droneData.applications.map(
-                  (application: string, index: number) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="flex items-center bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100"
-                    >
-                      <div className="w-2 h-2 bg-black rounded-full mr-4"></div>
-                      <span className="font-medium text-gray-800">
-                        {application}
-                      </span>
-                    </motion.div>
-                  )
-                )}
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">
+                  Applications
+                </h2>
+                <div className="space-y-3">
+                  {droneData.applications.map(
+                    (application: string, index: number) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="flex items-center bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+                      >
+                        <div className="w-2 h-2 bg-black rounded-full mr-4"></div>
+                        <span className="font-medium text-gray-800">
+                          {application}
+                        </span>
+                      </motion.div>
+                    )
+                  )}
+                </div>
               </div>
+
+              {droneData.whatsInTheBox && droneData.whatsInTheBox.length > 0 && (
+                <div className="mt-12">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-8">
+                    What's In The Box
+                  </h2>
+                  <div className="space-y-3">
+                    {droneData.whatsInTheBox.map(
+                      (item: string, index: number) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex items-center bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+                        >
+                          <div className="w-2 h-2 bg-blue-600 rounded-full mr-4"></div>
+                          <span className="font-medium text-gray-800">
+                            {item}
+                          </span>
+                        </motion.div>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
             </motion.div>
           </div>
         </div>
