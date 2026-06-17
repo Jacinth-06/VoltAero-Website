@@ -422,7 +422,7 @@ export default function ProductDetailsClient({ product }: { product: EnhancedPro
               </h2>
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
                 {Object.entries(droneData.specifications).map(
-                  ([key, value]: [string, string], index: number) => (
+                  ([key, value], index: number) => (
                     <div
                       key={key}
                       className={`p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
