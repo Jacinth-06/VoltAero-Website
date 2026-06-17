@@ -32,7 +32,7 @@ interface ProductFeature {
 }
 
 interface ProductSpecifications {
-  [key: string]: string;
+  [key: string]: string | undefined;
 }
 
 interface QuickSpecItem {
